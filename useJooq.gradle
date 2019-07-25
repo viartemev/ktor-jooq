@@ -44,8 +44,8 @@ jooq {
                 javaTimeTypes = true
             }
             target {
-                packageName = 'com.viartemev.model'
-                directory = 'src/model'
+                packageName = 'com.viartemev.ktor_jooq.generated'
+                directory = 'src'
             }
         }
     }

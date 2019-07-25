@@ -34,7 +34,7 @@ class Database(application: Application) {
 }
 
 internal class DatabaseConfig @KtorExperimentalAPI constructor(applicationConfig: ApplicationConfig) {
-    private val config = applicationConfig.config("")
+    private val config = applicationConfig.config("database")
     val url = config.property("connection").getString()
     val poolSize = config.property("poolSize").getString().toInt()
     val password = config.property("password").getString()
