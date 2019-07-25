@@ -30,6 +30,8 @@ dependencies {
     compile("io.ktor:ktor-server-core:$ktor_version")
     compile("io.ktor:ktor-jackson:$ktor_version")
     testCompile("io.ktor:ktor-server-tests:$ktor_version")
+    runtime("org.postgresql:postgresql:42.1.4")
+    compile("com.zaxxer:HikariCP:2.7.4")
 }
 
 kotlin.sourceSets["main"].kotlin.srcDirs("src")

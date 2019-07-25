@@ -1,32 +1,39 @@
 package com.viartemev
 
-import io.ktor.application.*
-import io.ktor.response.*
-import io.ktor.request.*
-import io.ktor.routing.*
-import io.ktor.http.*
-import com.fasterxml.jackson.databind.*
-import io.ktor.jackson.*
-import io.ktor.features.*
+import com.fasterxml.jackson.databind.SerializationFeature
+import com.viartemev.database.Database
+import com.viartemev.rest.channels
+import com.viartemev.service.ChannelService
+import io.ktor.application.Application
+import io.ktor.application.call
+import io.ktor.application.install
+import io.ktor.features.ContentNegotiation
+import io.ktor.features.StatusPages
+import io.ktor.http.HttpStatusCode
+import io.ktor.jackson.jackson
+import io.ktor.response.respond
+import io.ktor.routing.Routing
+import io.ktor.util.KtorExperimentalAPI
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
+@KtorExperimentalAPI
 @Suppress("unused") // Referenced in application.conf
 @kotlin.jvm.JvmOverloads
 fun Application.module(testing: Boolean = false) {
-    install(ContentNegotiation) {
-        jackson {
-            enable(SerializationFeature.INDENT_OUTPUT)
-        }
-    }
+    val database = Database(this)
+    val channelService = ChannelService(database)
 
-    routing {
-        get("/") {
-            call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
-        }
+    install(ContentNegotiation) { jackson { enable(SerializationFeature.INDENT_OUTPUT) } }
+    install(Routing) { channels(channelService) }
 
-        get("/json/jackson") {
-            call.respond(mapOf("hello" to "world"))
+    //TODO create pattern for error response
+    install(StatusPages) {
+        exception<Throwable> { cause ->
+            call.respond(
+                HttpStatusCode.InternalServerError,
+                "${cause.javaClass}: ${cause.localizedMessage}"
+            )
         }
     }
 }
