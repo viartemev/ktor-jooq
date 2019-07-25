@@ -1,0 +1,54 @@
+buildscript {
+    repositories {
+        maven {
+            url = uri('https://plugins.gradle.org/m2/')
+        }
+    }
+    dependencies {
+        classpath('nu.studer:gradle-jooq-plugin:3.0.3')
+    }
+}
+
+apply plugin: nu.studer.gradle.jooq.JooqPlugin
+apply plugin: 'java'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'org.jooq:jooq'
+    jooqRuntime "org.postgresql:postgresql:42.1.4"
+}
+
+jooq {
+    db(sourceSets.main) {
+        jdbc {
+            driver = 'org.postgresql.Driver'
+            url = 'jdbc:postgresql://localhost:5432/postgres'
+            user = 'postgres'
+            password = 'password'
+        }
+        generator {
+            database {
+                name = 'org.jooq.util.postgres.PostgresDatabase'
+                inputSchema = 'public'
+                includes = '.*'
+            }
+            generate {
+                relations = true
+                deprecated = false
+                records = true
+                immutablePojos = true
+                fluentSetters = true
+                javaTimeTypes = true
+            }
+            target {
+                packageName = 'com.viartemev.model'
+                directory = 'src/model'
+            }
+        }
+    }
+}
+cleanGenerateDbJooqSchemaSource.enabled = false
+generateDbJooqSchemaSource.enabled = false

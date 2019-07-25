@@ -2,6 +2,7 @@ package com.viartemev
 
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.viartemev.database.Database
+import com.viartemev.database.FlywayFeature
 import com.viartemev.rest.channels
 import com.viartemev.service.ChannelService
 import io.ktor.application.Application
@@ -24,6 +25,9 @@ fun Application.module(testing: Boolean = false) {
     val database = Database(this)
     val channelService = ChannelService(database)
 
+    install(FlywayFeature) {
+        dataSource = database.connectionPool
+    }
     install(ContentNegotiation) { jackson { enable(SerializationFeature.INDENT_OUTPUT) } }
     install(Routing) { channels(channelService) }
 

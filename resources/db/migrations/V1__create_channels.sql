@@ -1,0 +1,4 @@
+CREATE TABLE channels (
+    id INT NOT NULL PRIMARY KEY,
+    name VARCHAR NOT NULL
+);
