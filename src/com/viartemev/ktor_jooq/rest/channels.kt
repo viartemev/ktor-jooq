@@ -1,6 +1,6 @@
-package com.viartemev.rest
+package com.viartemev.ktor_jooq.rest
 
-import com.viartemev.service.ChannelService
+import com.viartemev.ktor_jooq.service.ChannelService
 import io.ktor.application.call
 import io.ktor.response.respond
 import io.ktor.routing.Routing

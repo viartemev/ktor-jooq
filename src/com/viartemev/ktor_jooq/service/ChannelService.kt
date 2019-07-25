@@ -1,7 +1,7 @@
-package com.viartemev.service
+package com.viartemev.ktor_jooq.service
 
-import com.viartemev.database.Database
-import com.viartemev.domain.Channel
+import com.viartemev.ktor_jooq.database.Database
+import com.viartemev.ktor_jooq.domain.Channel
 import io.ktor.util.KtorExperimentalAPI
 import java.util.*
 

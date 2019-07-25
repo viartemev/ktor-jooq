@@ -31,7 +31,7 @@ jooq {
         }
         generator {
             database {
-                name = 'org.jooq.util.postgres.PostgresDatabase'
+                name = 'org.jooq.meta.postgres.PostgresDatabase'
                 inputSchema = 'public'
                 includes = '.*'
             }
@@ -51,4 +51,3 @@ jooq {
     }
 }
 cleanGenerateDbJooqSchemaSource.enabled = false
-generateDbJooqSchemaSource.enabled = false

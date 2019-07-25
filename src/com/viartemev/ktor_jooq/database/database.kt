@@ -1,11 +1,10 @@
-package com.viartemev.database
+package com.viartemev.ktor_jooq.database
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.application.Application
 import io.ktor.config.ApplicationConfig
 import io.ktor.util.KtorExperimentalAPI
-import io.ktor.util.url
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.future.await
 import kotlinx.coroutines.withContext
@@ -35,7 +34,7 @@ class Database(application: Application) {
 }
 
 internal class DatabaseConfig @KtorExperimentalAPI constructor(applicationConfig: ApplicationConfig) {
-    private val config = applicationConfig.config("database")
+    private val config = applicationConfig.config("")
     val url = config.property("connection").getString()
     val poolSize = config.property("poolSize").getString().toInt()
     val password = config.property("password").getString()

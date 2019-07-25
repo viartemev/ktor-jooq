@@ -1,10 +1,10 @@
-package com.viartemev
+package com.viartemev.ktor_jooq
 
 import com.fasterxml.jackson.databind.SerializationFeature
-import com.viartemev.database.Database
-import com.viartemev.database.FlywayFeature
-import com.viartemev.rest.channels
-import com.viartemev.service.ChannelService
+import com.viartemev.ktor_jooq.database.Database
+import com.viartemev.ktor_jooq.database.FlywayFeature
+import com.viartemev.ktor_jooq.rest.channels
+import com.viartemev.ktor_jooq.service.ChannelService
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
