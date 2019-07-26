@@ -4,16 +4,13 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import com.viartemev.tv.database.Database
 import com.viartemev.tv.database.FlywayFeature
 import com.viartemev.tv.rest.channels
-import com.viartemev.tv.rest.programs
+import com.viartemev.tv.rest.statusPageConfiguration
 import com.viartemev.tv.service.TvService
 import io.ktor.application.Application
-import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.StatusPages
-import io.ktor.http.HttpStatusCode
 import io.ktor.jackson.jackson
-import io.ktor.response.respond
 import io.ktor.routing.Routing
 import io.ktor.util.KtorExperimentalAPI
 
@@ -26,25 +23,8 @@ fun Application.module(testing: Boolean = false) {
     val database = Database(this)
     val tvService = TvService(database)
 
-    install(FlywayFeature) {
-        dataSource = database.connectionPool
-    }
+    install(FlywayFeature) { dataSource = database.connectionPool }
     install(ContentNegotiation) { jackson { enable(SerializationFeature.INDENT_OUTPUT) } }
-    install(Routing) {
-        with(tvService) {
-            channels(this)
-            programs(this)
-        }
-    }
-
-    //TODO create pattern for error response
-/*    install(StatusPages) {
-        exception<Throwable> { cause ->
-            call.respond(
-                    HttpStatusCode.InternalServerError,
-                    "${cause.javaClass}: ${cause.localizedMessage}"
-            )
-        }
-    }*/
+    install(StatusPages, statusPageConfiguration)
+    install(Routing) { channels(tvService) }
 }
-

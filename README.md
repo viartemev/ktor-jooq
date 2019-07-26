@@ -8,6 +8,9 @@
 - [ ] Audit
 - [ ] Optimistic locks
 
-## Java
+## Kotlin
 - [ ] Channel pagination
 - [ ] Channel sorting
+- [ ] Error page
+- [ ] Hikari DB configuration
+- [ ] Json exception handling
