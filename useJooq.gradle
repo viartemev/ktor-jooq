@@ -44,10 +44,11 @@ jooq {
                 javaTimeTypes = true
             }
             target {
-                packageName = 'com.viartemev.ktor_jooq.generated'
+                packageName = 'com.viartemev.tv.generated'
                 directory = 'src'
             }
         }
     }
 }
 cleanGenerateDbJooqSchemaSource.enabled = false
+//FIXME clean this config

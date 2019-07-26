@@ -1,10 +1,11 @@
-package com.viartemev.ktor_jooq
+package com.viartemev.tv
 
 import com.fasterxml.jackson.databind.SerializationFeature
-import com.viartemev.ktor_jooq.database.Database
-import com.viartemev.ktor_jooq.database.FlywayFeature
-import com.viartemev.ktor_jooq.rest.channels
-import com.viartemev.ktor_jooq.service.ChannelService
+import com.viartemev.tv.database.Database
+import com.viartemev.tv.database.FlywayFeature
+import com.viartemev.tv.rest.channels
+import com.viartemev.tv.rest.programs
+import com.viartemev.tv.service.TvService
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
@@ -23,22 +24,27 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 @kotlin.jvm.JvmOverloads
 fun Application.module(testing: Boolean = false) {
     val database = Database(this)
-    val channelService = ChannelService(database)
+    val tvService = TvService(database)
 
     install(FlywayFeature) {
         dataSource = database.connectionPool
     }
     install(ContentNegotiation) { jackson { enable(SerializationFeature.INDENT_OUTPUT) } }
-    install(Routing) { channels(channelService) }
-
-    //TODO create pattern for error response
-    install(StatusPages) {
-        exception<Throwable> { cause ->
-            call.respond(
-                HttpStatusCode.InternalServerError,
-                "${cause.javaClass}: ${cause.localizedMessage}"
-            )
+    install(Routing) {
+        with(tvService) {
+            channels(this)
+            programs(this)
         }
     }
+
+    //TODO create pattern for error response
+/*    install(StatusPages) {
+        exception<Throwable> { cause ->
+            call.respond(
+                    HttpStatusCode.InternalServerError,
+                    "${cause.javaClass}: ${cause.localizedMessage}"
+            )
+        }
+    }*/
 }
 

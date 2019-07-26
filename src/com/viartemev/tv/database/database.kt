@@ -1,4 +1,4 @@
-package com.viartemev.ktor_jooq.database
+package com.viartemev.tv.database
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
@@ -23,6 +23,7 @@ class Database(application: Application) {
                 username = databaseConfig.username
                 maximumPoolSize = databaseConfig.poolSize
                 password = databaseConfig.password
+                isAutoCommit = false
             }
             .also { it.validate() })
     }

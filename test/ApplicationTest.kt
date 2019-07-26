@@ -1,7 +1,7 @@
 package com.viartemev
 
 import io.ktor.http.*
-import com.viartemev.ktor_jooq.module
+import com.viartemev.tv.module
 import kotlin.test.*
 import io.ktor.server.testing.*
 

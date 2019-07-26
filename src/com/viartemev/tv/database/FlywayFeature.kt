@@ -1,4 +1,4 @@
-package com.viartemev.ktor_jooq.database
+package com.viartemev.tv.database
 
 import io.ktor.application.Application
 import io.ktor.application.ApplicationFeature

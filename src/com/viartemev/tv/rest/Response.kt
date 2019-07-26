@@ -1,4 +1,4 @@
-package com.viartemev.ktor_jooq.rest
+package com.viartemev.tv.rest
 
 class Response<T> private constructor(val result: T) {
     companion object {
