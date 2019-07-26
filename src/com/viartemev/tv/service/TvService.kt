@@ -35,8 +35,12 @@ class TvService @KtorExperimentalAPI constructor(private val database: Database)
         return channel
     }
 
-    fun deleteChannel(id: Int): Boolean {
-        println("Channel has deleted $id")
-        return true
+    suspend fun deleteChannel(id: Int): Boolean {
+        val deleted = database.write {
+            it.deleteFrom(ChannelTable)
+                    .where(ChannelTable.ID.eq(id))
+                    .execute()
+        }
+        return deleted == 1
     }
 }
