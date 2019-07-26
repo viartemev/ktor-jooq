@@ -18,19 +18,23 @@ class Database(application: Application) {
     init {
         val databaseConfig = DatabaseConfig(application.environment.config)
         connectionPool = HikariDataSource(HikariConfig()
-            .apply {
-                jdbcUrl = databaseConfig.url
-                username = databaseConfig.username
-                maximumPoolSize = databaseConfig.poolSize
-                password = databaseConfig.password
-                isAutoCommit = false
-            }
-            .also { it.validate() })
+                .apply {
+                    jdbcUrl = databaseConfig.url
+                    username = databaseConfig.username
+                    maximumPoolSize = databaseConfig.poolSize
+                    password = databaseConfig.password
+                    isAutoCommit = false
+                }
+                .also { it.validate() })
     }
 
-    suspend fun <T> inTransaction(block: (DSLContext) -> T): T = withContext(Dispatchers.IO) {
+    suspend fun <T> query(block: (DSLContext) -> T): T = withContext(Dispatchers.IO) {
+        block(DSL.using(connectionPool, SQLDialect.POSTGRES))
+    }
+
+    suspend fun <T> write(block: (DSLContext) -> T): T = withContext(Dispatchers.IO) {
         DSL.using(connectionPool, SQLDialect.POSTGRES)
-            .transactionResultAsync { config -> block(DSL.using(config)) }.await()
+                .transactionResultAsync { config -> block(DSL.using(config)) }.await()
     }
 }
 

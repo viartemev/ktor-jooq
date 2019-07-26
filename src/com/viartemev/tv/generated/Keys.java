@@ -4,16 +4,11 @@
 package com.viartemev.tv.generated;
 
 
-import com.viartemev.tv.generated.tables.Channel;
 import com.viartemev.tv.generated.tables.FlywaySchemaHistory;
-import com.viartemev.tv.generated.tables.Program;
-import com.viartemev.tv.generated.tables.records.ChannelRecord;
 import com.viartemev.tv.generated.tables.records.FlywaySchemaHistoryRecord;
-import com.viartemev.tv.generated.tables.records.ProgramRecord;
 
 import javax.annotation.Generated;
 
-import org.jooq.ForeignKey;
 import org.jooq.UniqueKey;
 import org.jooq.impl.Internal;
 
@@ -41,27 +36,18 @@ public class Keys {
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
-    public static final UniqueKey<ChannelRecord> CHANNEL_PKEY = UniqueKeys0.CHANNEL_PKEY;
     public static final UniqueKey<FlywaySchemaHistoryRecord> FLYWAY_SCHEMA_HISTORY_PK = UniqueKeys0.FLYWAY_SCHEMA_HISTORY_PK;
-    public static final UniqueKey<ProgramRecord> PROGRAM_PKEY = UniqueKeys0.PROGRAM_PKEY;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
-    public static final ForeignKey<ProgramRecord, ChannelRecord> PROGRAM__PROGRAM_CHANNEL_ID_FKEY = ForeignKeys0.PROGRAM__PROGRAM_CHANNEL_ID_FKEY;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
     // -------------------------------------------------------------------------
 
     private static class UniqueKeys0 {
-        public static final UniqueKey<ChannelRecord> CHANNEL_PKEY = Internal.createUniqueKey(Channel.CHANNEL, "channel_pkey", Channel.CHANNEL.ID);
         public static final UniqueKey<FlywaySchemaHistoryRecord> FLYWAY_SCHEMA_HISTORY_PK = Internal.createUniqueKey(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, "flyway_schema_history_pk", FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.INSTALLED_RANK);
-        public static final UniqueKey<ProgramRecord> PROGRAM_PKEY = Internal.createUniqueKey(Program.PROGRAM, "program_pkey", Program.PROGRAM.ID);
-    }
-
-    private static class ForeignKeys0 {
-        public static final ForeignKey<ProgramRecord, ChannelRecord> PROGRAM__PROGRAM_CHANNEL_ID_FKEY = Internal.createForeignKey(com.viartemev.tv.generated.Keys.CHANNEL_PKEY, Program.PROGRAM, "program__program_channel_id_fkey", Program.PROGRAM.CHANNEL_ID);
     }
 }

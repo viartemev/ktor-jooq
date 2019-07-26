@@ -5,10 +5,10 @@ package com.viartemev.tv.generated.tables;
 
 
 import com.viartemev.tv.generated.Indexes;
-import com.viartemev.tv.generated.Keys;
 import com.viartemev.tv.generated.Public;
 import com.viartemev.tv.generated.tables.records.ChannelRecord;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,7 +22,6 @@ import org.jooq.Record;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
-import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.TableImpl;
 
@@ -40,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Channel extends TableImpl<ChannelRecord> {
 
-    private static final long serialVersionUID = -1715285915;
+    private static final long serialVersionUID = -1793420520;
 
     /**
      * The reference instance of <code>public.channel</code>
@@ -63,7 +62,32 @@ public class Channel extends TableImpl<ChannelRecord> {
     /**
      * The column <code>public.channel.title</code>.
      */
-    public final TableField<ChannelRecord, String> TITLE = createField("title", org.jooq.impl.SQLDataType.VARCHAR.nullable(false), this, "");
+    public final TableField<ChannelRecord, String> TITLE = createField("title", org.jooq.impl.SQLDataType.VARCHAR(50).nullable(false), this, "");
+
+    /**
+     * The column <code>public.channel.logo</code>.
+     */
+    public final TableField<ChannelRecord, String> LOGO = createField("logo", org.jooq.impl.SQLDataType.CLOB, this, "");
+
+    /**
+     * The column <code>public.channel.created_at</code>.
+     */
+    public final TableField<ChannelRecord, LocalDateTime> CREATED_AT = createField("created_at", org.jooq.impl.SQLDataType.LOCALDATETIME.defaultValue(org.jooq.impl.DSL.field("timezone('UTC'::text, now())", org.jooq.impl.SQLDataType.LOCALDATETIME)), this, "");
+
+    /**
+     * The column <code>public.channel.updated_at</code>.
+     */
+    public final TableField<ChannelRecord, LocalDateTime> UPDATED_AT = createField("updated_at", org.jooq.impl.SQLDataType.LOCALDATETIME, this, "");
+
+    /**
+     * The column <code>public.channel.archived</code>.
+     */
+    public final TableField<ChannelRecord, Boolean> ARCHIVED = createField("archived", org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("true", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
+
+    /**
+     * The column <code>public.channel.rank</code>.
+     */
+    public final TableField<ChannelRecord, Integer> RANK = createField("rank", org.jooq.impl.SQLDataType.INTEGER.defaultValue(org.jooq.impl.DSL.field("0", org.jooq.impl.SQLDataType.INTEGER)), this, "");
 
     /**
      * Create a <code>public.channel</code> table reference
@@ -111,23 +135,7 @@ public class Channel extends TableImpl<ChannelRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.CHANNEL_PKEY);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public UniqueKey<ChannelRecord> getPrimaryKey() {
-        return Keys.CHANNEL_PKEY;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<UniqueKey<ChannelRecord>> getKeys() {
-        return Arrays.<UniqueKey<ChannelRecord>>asList(Keys.CHANNEL_PKEY);
+        return Arrays.<Index>asList(Indexes.CHANNEL_TITLE_UINDEX);
     }
 
     /**

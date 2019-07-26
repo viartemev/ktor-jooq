@@ -5,6 +5,7 @@ package com.viartemev.tv.generated.tables.pojos;
 
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.annotation.Generated;
 
@@ -22,22 +23,42 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Channel implements Serializable {
 
-    private static final long serialVersionUID = -925434011;
+    private static final long serialVersionUID = 1445236907;
 
-    private final Integer id;
-    private final String  title;
+    private final Integer       id;
+    private final String        title;
+    private final String        logo;
+    private final LocalDateTime createdAt;
+    private final LocalDateTime updatedAt;
+    private final Boolean       archived;
+    private final Integer       rank;
 
     public Channel(Channel value) {
         this.id = value.id;
         this.title = value.title;
+        this.logo = value.logo;
+        this.createdAt = value.createdAt;
+        this.updatedAt = value.updatedAt;
+        this.archived = value.archived;
+        this.rank = value.rank;
     }
 
     public Channel(
-        Integer id,
-        String  title
+        Integer       id,
+        String        title,
+        String        logo,
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt,
+        Boolean       archived,
+        Integer       rank
     ) {
         this.id = id;
         this.title = title;
+        this.logo = logo;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.archived = archived;
+        this.rank = rank;
     }
 
     public Integer getId() {
@@ -48,12 +69,37 @@ public class Channel implements Serializable {
         return this.title;
     }
 
+    public String getLogo() {
+        return this.logo;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return this.createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return this.updatedAt;
+    }
+
+    public Boolean getArchived() {
+        return this.archived;
+    }
+
+    public Integer getRank() {
+        return this.rank;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Channel (");
 
         sb.append(id);
         sb.append(", ").append(title);
+        sb.append(", ").append(logo);
+        sb.append(", ").append(createdAt);
+        sb.append(", ").append(updatedAt);
+        sb.append(", ").append(archived);
+        sb.append(", ").append(rank);
 
         sb.append(")");
         return sb.toString();

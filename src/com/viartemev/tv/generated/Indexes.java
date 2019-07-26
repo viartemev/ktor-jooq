@@ -6,7 +6,6 @@ package com.viartemev.tv.generated;
 
 import com.viartemev.tv.generated.tables.Channel;
 import com.viartemev.tv.generated.tables.FlywaySchemaHistory;
-import com.viartemev.tv.generated.tables.Program;
 
 import javax.annotation.Generated;
 
@@ -32,19 +31,17 @@ public class Indexes {
     // INDEX definitions
     // -------------------------------------------------------------------------
 
-    public static final Index CHANNEL_PKEY = Indexes0.CHANNEL_PKEY;
+    public static final Index CHANNEL_TITLE_UINDEX = Indexes0.CHANNEL_TITLE_UINDEX;
     public static final Index FLYWAY_SCHEMA_HISTORY_PK = Indexes0.FLYWAY_SCHEMA_HISTORY_PK;
     public static final Index FLYWAY_SCHEMA_HISTORY_S_IDX = Indexes0.FLYWAY_SCHEMA_HISTORY_S_IDX;
-    public static final Index PROGRAM_PKEY = Indexes0.PROGRAM_PKEY;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
     // -------------------------------------------------------------------------
 
     private static class Indexes0 {
-        public static Index CHANNEL_PKEY = Internal.createIndex("channel_pkey", Channel.CHANNEL, new OrderField[] { Channel.CHANNEL.ID }, true);
+        public static Index CHANNEL_TITLE_UINDEX = Internal.createIndex("channel_title_uindex", Channel.CHANNEL, new OrderField[] { Channel.CHANNEL.TITLE }, true);
         public static Index FLYWAY_SCHEMA_HISTORY_PK = Internal.createIndex("flyway_schema_history_pk", FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, new OrderField[] { FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.INSTALLED_RANK }, true);
         public static Index FLYWAY_SCHEMA_HISTORY_S_IDX = Internal.createIndex("flyway_schema_history_s_idx", FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, new OrderField[] { FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.SUCCESS }, false);
-        public static Index PROGRAM_PKEY = Internal.createIndex("program_pkey", Program.PROGRAM, new OrderField[] { Program.PROGRAM.ID }, true);
     }
 }
