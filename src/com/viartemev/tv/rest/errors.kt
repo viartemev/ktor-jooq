@@ -17,7 +17,7 @@ val statusPageConfiguration: StatusPages.Configuration.() -> Unit = {
     }
 }
 
-private fun unhandledError(log: Logger, cause: Throwable): ErrorResponse {
+private fun unhandledError(log: Logger, cause: Throwable): ErrorResp {
     log.error(cause)
-    return ErrorResponse.of(HttpStatusCode.InternalServerError, "Server failed", "${cause.javaClass}: ${cause.localizedMessage}")
+    return ErrorResp.of(HttpStatusCode.InternalServerError, "Server failed", "${cause.javaClass}: ${cause.localizedMessage}")
 }

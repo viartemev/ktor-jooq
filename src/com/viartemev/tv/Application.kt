@@ -11,11 +11,14 @@ import io.ktor.application.install
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.StatusPages
 import io.ktor.jackson.jackson
+import io.ktor.locations.KtorExperimentalLocationsAPI
+import io.ktor.locations.Locations
 import io.ktor.routing.Routing
 import io.ktor.util.KtorExperimentalAPI
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
+@KtorExperimentalLocationsAPI
 @KtorExperimentalAPI
 @Suppress("unused") // Referenced in application.conf
 @kotlin.jvm.JvmOverloads
@@ -23,6 +26,7 @@ fun Application.module(testing: Boolean = false) {
     val database = Database(this)
     val tvService = TvService(database)
 
+    install(Locations)
     install(FlywayFeature) { dataSource = database.connectionPool }
     install(ContentNegotiation) { jackson { enable(SerializationFeature.INDENT_OUTPUT) } }
     install(StatusPages, statusPageConfiguration)

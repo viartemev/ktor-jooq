@@ -2,14 +2,14 @@ package com.viartemev.tv.rest
 
 import io.ktor.http.HttpStatusCode
 
-class SuccessResponse<T> private constructor(val result: T) {
+class SuccessResp<T> private constructor(val result: T) {
     companion object {
-        fun <T> of(data: T) = SuccessResponse(data)
+        fun <T> of(data: T) = SuccessResp(data)
     }
 }
 
-class ErrorResponse private constructor(val status: Int, val title: String, val details: String) {
+class ErrorResp private constructor(val status: Int, val title: String, val details: String) {
     companion object {
-        fun of(code: HttpStatusCode, title: String, details: String) = ErrorResponse(code.value, title, details)
+        fun of(code: HttpStatusCode, title: String, details: String) = ErrorResp(code.value, title, details)
     }
 }
