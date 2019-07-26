@@ -5,7 +5,6 @@ package com.viartemev.tv.generated;
 
 
 import com.viartemev.tv.generated.tables.Channel;
-import com.viartemev.tv.generated.tables.FlywaySchemaHistory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,7 +30,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = -2113812111;
+    private static final long serialVersionUID = -1288140825;
 
     /**
      * The reference instance of <code>public</code>
@@ -42,11 +41,6 @@ public class Public extends SchemaImpl {
      * The table <code>public.channel</code>.
      */
     public final Channel CHANNEL = com.viartemev.tv.generated.tables.Channel.CHANNEL;
-
-    /**
-     * The table <code>public.flyway_schema_history</code>.
-     */
-    public final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = com.viartemev.tv.generated.tables.FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
 
     /**
      * No further instances allowed
@@ -73,7 +67,6 @@ public class Public extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
-            Channel.CHANNEL,
-            FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY);
+            Channel.CHANNEL);
     }
 }

@@ -5,7 +5,6 @@ package com.viartemev.tv.generated;
 
 
 import com.viartemev.tv.generated.tables.Channel;
-import com.viartemev.tv.generated.tables.FlywaySchemaHistory;
 
 import javax.annotation.Generated;
 
@@ -27,9 +26,4 @@ public class Tables {
      * The table <code>public.channel</code>.
      */
     public static final Channel CHANNEL = com.viartemev.tv.generated.tables.Channel.CHANNEL;
-
-    /**
-     * The table <code>public.flyway_schema_history</code>.
-     */
-    public static final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = com.viartemev.tv.generated.tables.FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
 }

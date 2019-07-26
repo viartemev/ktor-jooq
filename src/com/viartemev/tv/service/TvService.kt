@@ -8,7 +8,6 @@ import com.viartemev.tv.generated.tables.Channel.CHANNEL as ChannelTable
 
 class TvService @KtorExperimentalAPI constructor(private val database: Database) {
 
-    //TODO add seek in sql https://blog.jooq.org/2016/08/10/why-most-programmers-get-pagination-wrong/
     suspend fun getChannels(pageable: Pageable): List<Channel> {
         return database.query {
             it.select()

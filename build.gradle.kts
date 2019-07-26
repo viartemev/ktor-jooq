@@ -29,10 +29,14 @@ dependencies {
     compile("io.ktor:ktor-jackson:$ktor_version")
     runtime("org.postgresql:postgresql:42.1.4")
     compile("javax.annotation:javax.annotation-api:1.3.2")
-    compile("org.jooq:jooq:3.11.11")
     compile("org.flywaydb:flyway-core:5.2.4")
     compile("com.zaxxer:HikariCP:2.7.4")
     testCompile("io.ktor:ktor-server-tests:$ktor_version")
+
+    /** JOOQ **/
+    compile("org.jooq:jooq:3.11.11")
+    //compile("org.jooq:jooq-meta:3.11.11")
+    //compile("org.jooq:jooq-codegen:3.11.11")
 }
 
 apply(from = "useJooq.gradle")
