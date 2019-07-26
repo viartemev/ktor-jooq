@@ -11,25 +11,29 @@ class TvService @KtorExperimentalAPI constructor(private val database: Database)
     suspend fun getChannels(pageable: Pageable): List<Channel> {
         return database.query {
             it.select()
-                    .from(ChannelTable)
-                    .orderBy(ChannelTable.RANK.desc())
-                    .offset(pageable.size * pageable.page)
-                    .limit(pageable.size)
-                    .fetchInto(Channel::class.java)
+                .from(ChannelTable)
+                .orderBy(ChannelTable.RANK.desc())
+                .offset(pageable.size * pageable.page)
+                .limit(pageable.size)
+                .fetchInto(Channel::class.java)
         }
     }
 
     suspend fun storeChannel(channel: Channel): Channel {
         val id = database.write {
-            it.insertInto(ChannelTable, ChannelTable.TITLE, ChannelTable.LOGO, ChannelTable.RANK)
-                    .values(channel.title, channel.logo, channel.rank)
-                    .returning(ChannelTable.ID)
-                    .fetchOne()
+            it.newRecord(ChannelTable)
+                .apply {
+                    title = channel.title
+                    logo = channel.logo
+                    rank = channel.rank
+                }
+                .store()
         }
-        return channel.copy(id = id.getValue(ChannelTable.ID))
+        return channel.copy(id = id)
     }
 
     fun updateChannel(channel: Channel): Channel {
+
         println("Channel has updated $channel")
         return channel
     }
@@ -37,8 +41,8 @@ class TvService @KtorExperimentalAPI constructor(private val database: Database)
     suspend fun deleteChannel(id: Int): Boolean {
         val deleted = database.write {
             it.deleteFrom(ChannelTable)
-                    .where(ChannelTable.ID.eq(id))
-                    .execute()
+                .where(ChannelTable.ID.eq(id))
+                .execute()
         }
         return deleted == 1
     }

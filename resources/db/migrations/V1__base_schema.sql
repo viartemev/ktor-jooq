@@ -10,7 +10,7 @@
 -- Channel table
 create table channel
 (
-	id INT GENERATED ALWAYS AS IDENTITY,
+	id SERIAL PRIMARY KEY,
 	title VARCHAR(50) NOT NULL,
 	logo TEXT,
 	created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT (NOW() AT TIME ZONE 'UTC'),

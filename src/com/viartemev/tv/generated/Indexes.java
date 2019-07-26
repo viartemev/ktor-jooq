@@ -30,6 +30,7 @@ public class Indexes {
     // INDEX definitions
     // -------------------------------------------------------------------------
 
+    public static final Index CHANNEL_PKEY = Indexes0.CHANNEL_PKEY;
     public static final Index CHANNEL_TITLE_UINDEX = Indexes0.CHANNEL_TITLE_UINDEX;
 
     // -------------------------------------------------------------------------
@@ -37,6 +38,7 @@ public class Indexes {
     // -------------------------------------------------------------------------
 
     private static class Indexes0 {
+        public static Index CHANNEL_PKEY = Internal.createIndex("channel_pkey", Channel.CHANNEL, new OrderField[] { Channel.CHANNEL.ID }, true);
         public static Index CHANNEL_TITLE_UINDEX = Internal.createIndex("channel_title_uindex", Channel.CHANNEL, new OrderField[] { Channel.CHANNEL.TITLE }, true);
     }
 }
