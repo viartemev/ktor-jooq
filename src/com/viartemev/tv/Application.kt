@@ -4,13 +4,13 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import com.viartemev.tv.database.Database
 import com.viartemev.tv.database.FlywayFeature
 import com.viartemev.tv.rest.channels
-import com.viartemev.tv.rest.statusPageConfiguration
+import com.viartemev.tv.rest.jackson.customJackson
+import com.viartemev.tv.rest.errors.statusPageConfiguration
 import com.viartemev.tv.service.TvService
 import io.ktor.application.Application
 import io.ktor.application.install
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.StatusPages
-import io.ktor.jackson.jackson
 import io.ktor.locations.KtorExperimentalLocationsAPI
 import io.ktor.locations.Locations
 import io.ktor.routing.Routing
@@ -27,8 +27,8 @@ fun Application.module(testing: Boolean = false) {
     val tvService = TvService(database)
 
     install(Locations)
-    install(FlywayFeature) { dataSource = database.connectionPool }
-    install(ContentNegotiation) { jackson { enable(SerializationFeature.INDENT_OUTPUT) } }
-    install(StatusPages, statusPageConfiguration)
     install(Routing) { channels(tvService) }
+    install(StatusPages, statusPageConfiguration)
+    install(FlywayFeature) { dataSource = database.connectionPool }
+    install(ContentNegotiation) { customJackson { enable(SerializationFeature.INDENT_OUTPUT) } }
 }

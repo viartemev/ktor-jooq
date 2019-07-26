@@ -18,7 +18,7 @@ class TvService @KtorExperimentalAPI constructor(private val database: Database)
 
     fun storeChannel(channel: Channel): Channel {
         println("Channel has stored $channel")
-        return channel
+        return channel.copy(id = 1)
     }
 
     fun updateChannel(channel: Channel): Channel {

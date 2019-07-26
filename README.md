@@ -11,6 +11,6 @@
 ## Kotlin
 - [ ] Channel pagination
 - [ ] Channel sorting
-- [ ] Error page
 - [ ] Hikari DB configuration
-- [ ] Json exception handling
+- [X] Json exception handling
+- [X] Error page

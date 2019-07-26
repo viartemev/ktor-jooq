@@ -16,7 +16,6 @@ internal fun Routing.channels(tvService: TvService) {
         call.respond(SuccessResp.of(tvService.getChannels(location.toPageable()).map { ChannelResponse.fromChannel(it) }))
     }
     post<ChannelsLocation> {
-        //TODO jackson validation
         val channelRequest = call.receive<ChannelRequest>()
         call.respond(SuccessResp.of(ChannelResponse.fromChannel(tvService.storeChannel(channelRequest.toChannel()))))
     }
