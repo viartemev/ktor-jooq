@@ -15,11 +15,13 @@ import io.ktor.http.content.TextContent
 import io.ktor.http.withCharset
 import io.ktor.request.ApplicationReceiveRequest
 import io.ktor.request.contentCharset
+import io.ktor.util.KtorExperimentalAPI
 import io.ktor.util.pipeline.PipelineContext
 import kotlinx.coroutines.io.ByteReadChannel
 import kotlinx.coroutines.io.jvm.javaio.toInputStream
 import kotlinx.io.errors.IOException
 
+@KtorExperimentalAPI
 fun ContentNegotiation.Configuration.customJackson(contentType: ContentType = ContentType.Application.Json,
                                                    block: ObjectMapper.() -> Unit = {}) {
     val mapper = jacksonObjectMapper()
@@ -34,6 +36,7 @@ fun ContentNegotiation.Configuration.customJackson(contentType: ContentType = Co
     register(contentType, converter)
 }
 
+@KtorExperimentalAPI
 class JacksonConverter(private val objectmapper: ObjectMapper = jacksonObjectMapper()) : ContentConverter {
     override suspend fun convertForSend(context: PipelineContext<Any, ApplicationCall>, contentType: ContentType, value: Any): Any? {
         return TextContent(objectmapper.writeValueAsString(value), contentType.withCharset(context.call.suitableCharset()))

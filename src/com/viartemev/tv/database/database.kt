@@ -38,6 +38,7 @@ class Database(application: Application) {
     }
 }
 
+@KtorExperimentalAPI
 internal class DatabaseConfig @KtorExperimentalAPI constructor(applicationConfig: ApplicationConfig) {
     private val config = applicationConfig.config("database")
     val url = config.property("connection").getString()

@@ -1,10 +1,15 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import org.jetbrains.kotlin.gradle.dsl.Coroutines
+
 val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
 
 plugins {
+    java
     application
     kotlin("jvm") version "1.3.40"
+    id("com.github.johnrengelman.shadow") version "5.1.0"
 }
 
 group = "com.viartemev"
@@ -40,8 +45,33 @@ dependencies {
 }
 
 apply(from = "useJooq.gradle")
+kotlin.experimental.coroutines = Coroutines.ENABLE
 
 kotlin.sourceSets["main"].kotlin.srcDirs("src")
 kotlin.sourceSets["test"].kotlin.srcDirs("test")
 
 sourceSets["main"].resources.srcDirs("resources")
+
+tasks {
+    named<ShadowJar>("shadowJar") {
+        archiveBaseName.set("joo-ktor")
+        mergeServiceFiles()
+        manifest {
+            attributes(mapOf("Main-Class" to application.mainClassName))
+        }
+    }
+}
+
+tasks {
+    build {
+        dependsOn(shadowJar)
+    }
+}
+
+/*
+tasks.withType<Jar> {
+    manifest {
+        attributes["Main-Class"] = application.mainClassName
+    }
+    from(configurations.runtime.get().map { if (it.isDirectory) it else zipTree(it) })
+}*/
